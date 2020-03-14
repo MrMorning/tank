@@ -1,7 +1,11 @@
-import pygame, sys, math
-from game import Tank, Bullet
+import pygame
+
+from game import Tank
+
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
+
+
 class TankGame:
     def __init__(self):
         pygame.init()
@@ -23,6 +27,14 @@ class TankGame:
     def restart(self):
         self.tank1 = Tank(env=self, path="assets/tank1.png", pos=[70, 70], angle=0)
         self.tank2 = Tank(env=self, path="assets/tank2.png", pos=[300, 300], angle=180)
+
+    def update(self):
+        self.tank1.update()
+        self.tank2.update()
+        self.text1.update()
+        self.text2.update()
+        self.score1.update()
+        self.score2.update()
 
 class Text:
     def __init__(self, game, font, size, color, str, pos):

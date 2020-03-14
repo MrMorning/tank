@@ -1,7 +1,7 @@
-import pygame, sys, math
-from game import Tank, Bullet
-from bg import TankGame, BLACK
 from utils import *
+import pygame, sys, math
+from bg import *
+from game import *
 
 game = TankGame()
 
@@ -68,11 +68,6 @@ while True:
     game.screen.fill(BLACK)
     # print(tank1.pos)
     iterateQueue(game)
-    game.tank1.update()
-    game.tank2.update()
-    game.text1.update()
-    game.text2.update()
-    game.score1.update()
-    game.score2.update()
+    game.update()
     pygame.display.update()
     game.fclock.tick(game.fps)

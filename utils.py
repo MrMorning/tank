@@ -1,6 +1,4 @@
-from bg import *
-from game import *
-import pygame, sys, math
+import math
 
 def iterateQueue(game):
     for bullet in game.bulletQueue:
