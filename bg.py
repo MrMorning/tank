@@ -17,8 +17,11 @@ class TankGame:
         self.fps = 300
         self.fclock = pygame.time.Clock()
         self.uevent = []
-        self.tank1 = Tank(env=self, path="assets/tank1.png", pos=[70, 70], angle=0)
-        self.tank2 = Tank(env=self, path="assets/tank2.png", pos=[300, 300], angle=180)
+        self.tank1 = Tank(env=self, path="assets/tank1.png", para_pos=[70, 70], para_angle=0)
+        self.tank2 = Tank(env=self, path="assets/tank2.png", para_pos=[300, 300], para_angle=180)
+        pygame.display.set_icon(self.tank1.surf)
+        pygame.mixer.music.load("assets/bgm.wav")
+        pygame.mixer.music.play(-1, 0.0)
         self.bulletQueue = []
         self.score1 = Score(self, 0, [500, 100])
         self.score2 = Score(self, 0, [500, 200])
@@ -33,8 +36,9 @@ class TankGame:
 
 
     def restart(self):
-        self.tank1 = Tank(env=self, path="assets/tank1.png", pos=[70, 70], angle=0)
-        self.tank2 = Tank(env=self, path="assets/tank2.png", pos=[300, 300], angle=180)
+        self.tank1 = Tank(env=self, path="assets/tank1.png", para_pos=[70, 70], para_angle=0)
+        self.tank2 = Tank(env=self, path="assets/tank2.png", para_pos=[300, 300], para_angle=180)
+
 
     def titleStart(self):
         self.score1.set(0)
@@ -43,6 +47,7 @@ class TankGame:
         self.titleText.update()
         self.desciptionText1.update()
         self.desciptionText2.update()
+        self.bulletQueue = []
 
 
     def update(self):

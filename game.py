@@ -10,6 +10,7 @@ class GameObj:
         self.path = path
         self.speed = 1
         self.omega = 1
+        self.prop = 0
 
     def update(self):
         sr = self.surf.get_rect()
@@ -21,6 +22,9 @@ class GameObj:
     def move(self, direction):
         self.pos[0] += direction[0] * self.speed
         self.pos[1] += direction[1] * self.speed
+        if self.prop == 1 and (self.pos[0] <= 0 or self.pos[0] >= self.env.width or self.pos[1] <= 0 or self.pos[1] >= self.env.height):
+            self.pos[0] -= direction[0] * self.speed
+            self.pos[1] -= direction[1] * self.speed
 
     def rotateTo(self, angle):
         self.angle = angle
@@ -38,10 +42,16 @@ class GameObj:
 class Tank(GameObj):
     width = 80
     height = 80
+
+    def __init__(self, env, path, para_pos, para_angle):
+        GameObj.__init__(self, env, path=path, pos=para_pos, angle=para_angle)
+        self.prop = 1
     def shoot(self, ind):
         bullet = Bullet(self.env, para_pos = self.pos, para_angle = self.angle, belong = ind)
         bullet.update()
         self.env.bulletQueue.append(bullet)
+        effect = pygame.mixer.Sound('assets/boom.wav')
+        effect.play()
 
 
 class Bullet(GameObj):
@@ -52,6 +62,7 @@ class Bullet(GameObj):
         GameObj.__init__(self, env, path=self.path, pos=para_pos, angle=para_angle)
         self.surf = pygame.transform.rotate(self.surf, -90)
         self.belong = belong
+        self.prop = 2
 
     def collapse(self):
         # self.rect = self.surf.get_rect()
@@ -61,10 +72,12 @@ class Bullet(GameObj):
             return True
         elif(self.belong == 2 and (abs(self.pos[0] - self.env.tank1.pos[0]) <= self.env.tank1.width / 2 and abs(self.pos[1] - self.env.tank1.pos[1]) < self.env.tank1.height / 2)):
             self.env.score2.inc()
+            self.env.bulletQueue = []
             self.env.restart()
             return True
         elif(self.belong == 1 and (abs(self.pos[0] - self.env.tank2.pos[0]) <= self.env.tank2.width / 2 and abs(self.pos[1] - self.env.tank2.pos[1]) < self.env.tank2.height / 2)):
             self.env.score1.inc()
+            self.env.bulletQueue = []
             self.env.restart()
             return True
         # print("False")

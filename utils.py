@@ -5,7 +5,8 @@ def iterateQueue(game):
         bullet.move(angleToDirection(game, bullet.angle))
         bullet.update()
         if bullet.collapse():
-            game.bulletQueue.remove(bullet)
+            if bullet in game.bulletQueue:
+                game.bulletQueue.remove(bullet)
 
 def angleToDirection(game, angle):
     return [game.tank1.speed * math.cos(math.radians(angle)), -game.tank1.speed * math.sin(math.radians(angle))]
