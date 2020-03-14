@@ -10,6 +10,8 @@ similarly, you can use `UP` `DOWN` `RIGHT` `LEFT` to control tank2, following th
 
 When you enter the welcome page, you can press `1` to enter single player mode and `2` to enter double player mode.
 
+When you want to return to title page, please press `ESC`.
+
 In single player mode, you will meet a powerful AI tank! Try your best to beat it !
 
 ## How can you play it
