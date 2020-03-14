@@ -4,6 +4,7 @@ from game import Tank
 
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
+YELLOW = 255, 255, 0
 
 
 class TankGame:
@@ -24,10 +25,24 @@ class TankGame:
         self.text1 = Text(self, "assets/comic.ttf", 36, WHITE, "Tank1:", [400, 100])
         self.text2 = Text(self, "assets/comic.ttf", 36, WHITE, "Tank2:", [400, 200])
         self.startFlag = 0
+        self.titleText = Text(self, "assets/comic.ttf", 64, YELLOW, "TANK!", [300, 100])
+        self.desciptionText1 = Text(self, "assets/comic.ttf", 20, WHITE, "Press 1 to play in single player mode", [300, 200])
+        self.desciptionText2 = Text(self, "assets/comic.ttf", 20, WHITE, "Press 2 to play in double player mode", [300, 300])
+
+
 
     def restart(self):
         self.tank1 = Tank(env=self, path="assets/tank1.png", pos=[70, 70], angle=0)
         self.tank2 = Tank(env=self, path="assets/tank2.png", pos=[300, 300], angle=180)
+
+    def titleStart(self):
+        self.score1.set(0)
+        self.score2.set(0)
+        self.screen.fill(BLACK)
+        self.titleText.update()
+        self.desciptionText1.update()
+        self.desciptionText2.update()
+
 
     def update(self):
         self.tank1.update()
@@ -74,3 +89,9 @@ class Score(Text):
 
     def getScore(self):
         return self.val
+
+    def set(self, val):
+        self.val = val
+        self.content = str(self.val)
+        self.reRender()
+        self.update()

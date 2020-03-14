@@ -7,8 +7,9 @@ game = TankGame()
 
 game.tank1.update()
 game.tank2.update()
-keySet1 = set([pygame.K_s, pygame.K_w, pygame.K_d, pygame.K_a])
-keySet2 = set([pygame.K_DOWN, pygame.K_UP, pygame.K_RIGHT, pygame.K_LEFT])
+keySet1 = {pygame.K_s, pygame.K_w, pygame.K_d, pygame.K_a}
+keySet2 = {pygame.K_DOWN, pygame.K_UP, pygame.K_RIGHT, pygame.K_LEFT}
+game.titleStart()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -50,6 +51,13 @@ while True:
                 game.tank1.shoot(1)
             elif event.key == pygame.K_SLASH:
                 game.tank2.shoot(2)
+            elif event.key == pygame.K_1:
+                game.startFlag = 1
+            elif event.key == pygame.K_2:
+                game.startFlag = 2
+            elif event.key == pygame.K_ESCAPE:
+                game.startFlag = 0
+                game.titleStart()
 
         elif event.type == pygame.KEYUP:
             newEvent = pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": event.key})
@@ -60,16 +68,16 @@ while True:
             if(flag):
                 game.uevent.remove(newEvent)
     #
-
-    # print(len(game.uevent))
-    for event in game.uevent:
-        pygame.event.post(event)
-    # print("he")
-    # print(len(bulletQueue))
-    game.screen.fill(BLACK)
-    # print(tank1.pos)
-    iterateQueue(game)
-    checkCollapse(game)
-    game.update()
+    if(game.startFlag == 2):
+        # print(len(game.uevent))
+        for event in game.uevent:
+            pygame.event.post(event)
+        # print("he")
+        # print(len(bulletQueue))
+        game.screen.fill(BLACK)
+        # print(tank1.pos)
+        iterateQueue(game)
+        checkCollapse(game)
+        game.update()
     pygame.display.update()
     game.fclock.tick(game.fps)
