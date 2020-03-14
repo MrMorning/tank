@@ -1,4 +1,14 @@
-### descpription: this file is main flow of the game
+# Created by Chen Geng
+# 2020/03/14
+
+# Descpription: this file is main flow of the game
+# IMPORTANT: more comment are contained in class and method specifications!
+# If you use PyCharm, you can use Ctrl + Q to check documentation of a class or method.
+# If you have more problems, please contact gengchen AT zju DOT edu DOT cn
+# or contact unrealgengchen AT gmail DOT com
+# This project will be open sourced on Github after being handed in.
+# So please give it a STAR if possible!
+# My github homepage is: http://github.com/MrMorning
 from utils import *
 import pygame, sys, math
 from bg import *
@@ -6,6 +16,7 @@ from game import *
 
 game = TankGame()
 ## Init game from TankGame class(in bg.py)
+
 
 game.tank1.update()
 game.tank2.update()
@@ -18,7 +29,11 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_a}))
-                ## make pressing for a long time possible
+                # make pressing for a long time possible
+                # Add() is a function declared in utils.py,
+                # which maintain a queue of events.
+                # every time the screen get flushed, we will scan this queue
+                # and add events in this queue to the Pygame Event Queue
                 game.tank1.rotate(game.tank1.omega)
                 game.tank1.update()
             elif event.key == pygame.K_d:
@@ -62,15 +77,21 @@ while True:
                 game.titleStart()
 
         elif event.type == pygame.KEYUP:
+            # if key up, we will remove the event from the queue
+            # so the event will not be added to event queue any more
             newEvent = pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": event.key})
             flag = 0
             for e in game.uevent:
-                if(e.key == newEvent.key):
+                if (e.key == newEvent.key):
                     flag = 1
-            if(flag):
+            # to see if this event is in the queue
+            if flag:
                 game.uevent.remove(newEvent)
     #
-    if(game.startFlag == 2):
+    if (game.startFlag == 2):
+        # game.startFlag means which type
+        # 1 means single player
+        # 2 means double player
         # print(len(game.uevent))
         for event in game.uevent:
             pygame.event.post(event)
@@ -81,12 +102,14 @@ while True:
         iterateQueue(game)
         checkCollapse(game)
         game.update()
-    elif(game.startFlag == 1):
+    elif (game.startFlag == 1):
         game.tank2.speed = 0.2
+        # slow down the ai, because the ai is so niubi
         game.tank2.move(angleToDirection(game, getAttackAngle(game)))
         game.tank2.rotateTo(getAttackAngle(game))
         if game.clock % 300 == 150:
             game.tank2.shoot(2)
+        # shoot every 1 second
         # print(len(game.uevent))
         for event in game.uevent:
             pygame.event.post(event)
