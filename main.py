@@ -31,25 +31,25 @@ while True:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_w}))
                 game.tank1.move(angleToDirection(game, game.tank1.angle))
                 game.tank1.update()
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pygame.K_LEFT and game.startFlag == 2:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_LEFT}))
                 game.tank2.rotate(game.tank2.omega)
                 game.tank2.update()
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and game.startFlag == 2:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_RIGHT}))
                 game.tank2.rotate(-game.tank2.omega)
                 game.tank2.update()
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and game.startFlag == 2:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_DOWN}))
                 game.tank2.move(angleToDirection(game, game.tank2.angle + 180))
                 game.tank2.update()
-            elif event.key == pygame.K_UP:
+            elif event.key == pygame.K_UP and game.startFlag == 2:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_UP}))
                 game.tank2.move(angleToDirection(game, game.tank2.angle))
                 game.tank2.update()
             elif event.key == pygame.K_g:
                 game.tank1.shoot(1)
-            elif event.key == pygame.K_SLASH:
+            elif event.key == pygame.K_SLASH and game.startFlag == 2:
                 game.tank2.shoot(2)
             elif event.key == pygame.K_1:
                 game.startFlag = 1
@@ -79,5 +79,22 @@ while True:
         iterateQueue(game)
         checkCollapse(game)
         game.update()
+    elif(game.startFlag == 1):
+        game.tank2.speed = 0.2
+        game.tank2.move(angleToDirection(game, getAttackAngle(game)))
+        game.tank2.rotateTo(getAttackAngle(game))
+        if game.clock % 300 == 150:
+            game.tank2.shoot(2)
+        # print(len(game.uevent))
+        for event in game.uevent:
+            pygame.event.post(event)
+        # print("he")
+        # print(len(bulletQueue))
+        game.screen.fill(BLACK)
+        # print(tank1.pos)
+        iterateQueue(game)
+        checkCollapse(game)
+        game.update()
     pygame.display.update()
+    game.clock += 1
     game.fclock.tick(game.fps)

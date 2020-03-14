@@ -19,8 +19,14 @@ class GameObj:
         self.env.screen.blit(self.surf, sr)
 
     def move(self, direction):
-        self.pos[0] += direction[0]
-        self.pos[1] += direction[1]
+        self.pos[0] += direction[0] * self.speed
+        self.pos[1] += direction[1] * self.speed
+
+    def rotateTo(self, angle):
+        self.angle = angle
+        self.surf = pygame.image.load(self.path)
+        self.surf = pygame.transform.rotate(self.surf, self.angle)
+        self.update()
 
     def rotate(self, deltaAngle):
         self.angle += deltaAngle

@@ -28,6 +28,7 @@ class TankGame:
         self.titleText = Text(self, "assets/comic.ttf", 64, YELLOW, "TANK!", [300, 100])
         self.desciptionText1 = Text(self, "assets/comic.ttf", 20, WHITE, "Press 1 to play in single player mode", [300, 200])
         self.desciptionText2 = Text(self, "assets/comic.ttf", 20, WHITE, "Press 2 to play in double player mode", [300, 300])
+        self.clock = 0
 
 
 

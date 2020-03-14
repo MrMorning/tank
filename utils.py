@@ -19,3 +19,8 @@ def Add(game, event):
 def checkCollapse(game):
     if(abs(game.tank1.pos[0] - game.tank2.pos[0]) < game.tank1.width / 2 and abs(game.tank2.pos[1] - game.tank1.pos[1]) < game.tank1.height / 2):
         game.restart()
+
+def getAttackAngle(game):
+    x = game.tank1.pos[0] - game.tank2.pos[0]
+    y = -(game.tank1.pos[1] - game.tank2.pos[1])
+    return math.degrees(math.atan2(y, x))
