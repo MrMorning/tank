@@ -15,3 +15,7 @@ def Add(game, event):
         if(e == event):
             return
     game.uevent.append(event)
+
+def checkCollapse(game):
+    if(abs(game.tank1.pos[0] - game.tank2.pos[0]) < game.tank1.width / 2 and abs(game.tank2.pos[1] - game.tank1.pos[1]) < game.tank1.height / 2):
+        game.restart()

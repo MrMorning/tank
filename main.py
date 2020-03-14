@@ -60,7 +60,8 @@ while True:
             if(flag):
                 game.uevent.remove(newEvent)
     #
-    print(len(game.uevent))
+
+    # print(len(game.uevent))
     for event in game.uevent:
         pygame.event.post(event)
     # print("he")
@@ -68,6 +69,7 @@ while True:
     game.screen.fill(BLACK)
     # print(tank1.pos)
     iterateQueue(game)
+    checkCollapse(game)
     game.update()
     pygame.display.update()
     game.fclock.tick(game.fps)

@@ -23,6 +23,7 @@ class TankGame:
         self.score2 = Score(self, 0, [500, 200])
         self.text1 = Text(self, "assets/comic.ttf", 36, WHITE, "Tank1:", [400, 100])
         self.text2 = Text(self, "assets/comic.ttf", 36, WHITE, "Tank2:", [400, 200])
+        self.startFlag = 0
 
     def restart(self):
         self.tank1 = Tank(env=self, path="assets/tank1.png", pos=[70, 70], angle=0)
