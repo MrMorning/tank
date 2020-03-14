@@ -20,6 +20,9 @@ class GameObj:
         self.env.screen.blit(self.surf, sr)
 
     def move(self, direction):
+        if not pygame.display.get_active():
+            return
+        ## Pause when the screen is not active
         self.pos[0] += direction[0] * self.speed
         self.pos[1] += direction[1] * self.speed
         if self.prop == 1 and (self.pos[0] <= 0 or self.pos[0] >= self.env.width or self.pos[1] <= 0 or self.pos[1] >= self.env.height):
@@ -27,12 +30,18 @@ class GameObj:
             self.pos[1] -= direction[1] * self.speed
 
     def rotateTo(self, angle):
+        if not pygame.display.get_active():
+            return
+        ## Pause when the screen is not active
         self.angle = angle
         self.surf = pygame.image.load(self.path)
         self.surf = pygame.transform.rotate(self.surf, self.angle)
         self.update()
 
     def rotate(self, deltaAngle):
+        if not pygame.display.get_active():
+            return
+        ## Pause when the screen is not active
         self.angle += deltaAngle
         self.surf = pygame.image.load(self.path)
         self.surf = pygame.transform.rotate(self.surf, self.angle)
@@ -47,6 +56,9 @@ class Tank(GameObj):
         GameObj.__init__(self, env, path=path, pos=para_pos, angle=para_angle)
         self.prop = 1
     def shoot(self, ind):
+        if not pygame.display.get_active():
+            return
+        ## Pause when the screen is not active
         bullet = Bullet(self.env, para_pos = self.pos, para_angle = self.angle, belong = ind)
         bullet.update()
         self.env.bulletQueue.append(bullet)

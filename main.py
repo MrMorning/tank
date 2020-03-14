@@ -1,15 +1,16 @@
+### descpription: this file is main flow of the game
 from utils import *
 import pygame, sys, math
 from bg import *
 from game import *
 
 game = TankGame()
+## Init game from TankGame class(in bg.py)
 
 game.tank1.update()
 game.tank2.update()
-keySet1 = {pygame.K_s, pygame.K_w, pygame.K_d, pygame.K_a}
-keySet2 = {pygame.K_DOWN, pygame.K_UP, pygame.K_RIGHT, pygame.K_LEFT}
 game.titleStart()
+## start from title
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -17,6 +18,7 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 Add(game, pygame.event.Event(pygame.KEYDOWN, {"unicode": 123, "key": pygame.K_a}))
+                ## make pressing for a long time possible
                 game.tank1.rotate(game.tank1.omega)
                 game.tank1.update()
             elif event.key == pygame.K_d:

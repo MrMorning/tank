@@ -41,6 +41,7 @@ class TankGame:
 
 
     def titleStart(self):
+        self.restart()
         self.score1.set(0)
         self.score2.set(0)
         self.screen.fill(BLACK)
