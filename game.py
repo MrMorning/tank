@@ -54,9 +54,12 @@ class Bullet(GameObj):
             # print("True")
             return True
         elif(self.belong == 2 and (abs(self.pos[0] - self.env.tank1.pos[0]) <= self.env.tank1.width / 2 and abs(self.pos[1] - self.env.tank1.pos[1]) < self.env.tank1.height / 2)):
-            # TODO: point
+            self.env.score2.inc()
+            self.env.restart()
             return True
         elif(self.belong == 1 and (abs(self.pos[0] - self.env.tank2.pos[0]) <= self.env.tank2.width / 2 and abs(self.pos[1] - self.env.tank2.pos[1]) < self.env.tank2.height / 2)):
+            self.env.score1.inc()
+            self.env.restart()
             return True
         # print("False")
         return False
